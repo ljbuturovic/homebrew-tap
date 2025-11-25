@@ -1,3 +1,13 @@
+class LlmModels < Formula
+  include Language::Python::Virtualenv
+
+  desc "CLI tool to list available LLM models from various providers"
+  homepage "https://github.com/ljbuturovic/llm_models"
+  url "https://files.pythonhosted.org/packages/89/f5/04191b54bb1b692b196d34b17cf2dce6c4059dae889e903df39c02c21280/llm_models-0.1.0.tar.gz"
+  sha256 "1265d8933231f66fee79fb1c67a1a14e6f0ee5b8af59cfa0b3317535f824fa50"
+
+  depends_on "python@3.11"
+
   resource "annotated-types" do
     url "https://files.pythonhosted.org/packages/ee/67/531ea369ba64dcff5ec9c3402f9f51bf748cec26dde048a2f973a4eea7f5/annotated_types-0.7.0.tar.gz"
     sha256 "aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89"
@@ -61,11 +71,6 @@
   resource "jiter" do
     url "https://files.pythonhosted.org/packages/a3/68/0357982493a7b20925aece061f7fb7a2678e3b232f8d73a6edb7e5304443/jiter-0.11.1.tar.gz"
     sha256 "849dcfc76481c0ea0099391235b7ca97d7279e0fa4c86005457ac7c88e8b76dc"
-  end
-
-  resource "llm-models" do
-    url "https://files.pythonhosted.org/packages/89/f5/04191b54bb1b692b196d34b17cf2dce6c4059dae889e903df39c02c21280/llm_models-0.1.0.tar.gz"
-    sha256 "1265d8933231f66fee79fb1c67a1a14e6f0ee5b8af59cfa0b3317535f824fa50"
   end
 
   resource "openai" do
@@ -137,3 +142,12 @@
     url "https://files.pythonhosted.org/packages/21/e6/26d09fab466b7ca9c7737474c52be4f76a40301b08362eb2dbc19dcc16c1/websockets-15.0.1.tar.gz"
     sha256 "82544de02076bafba038ce055ee6412d68da13ab47f0c60cab827346de828dee"
   end
+
+  def install
+    virtualenv_install_with_resources
+  end
+
+  test do
+    system "#{bin}/llm-models", "--help"
+  end
+end
